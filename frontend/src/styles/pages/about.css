@@ -1,0 +1,41 @@
+.about-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9fafb;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .about-page h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-page p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+  
+
+  .about-image-container {
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.about-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+}
+
+.about-caption {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+}

@@ -1,0 +1,69 @@
+/* 
+ * Typography Styles
+ * Base typography styles for the application
+ */
+
+ body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-dark);
+    margin: 10px 0;
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: var(--font-size-medium);
+  }
+  
+  /* Paragraphs */
+  p {
+    line-height: var(--line-height);
+    color: var(--color-text-medium);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  /* Links */
+  a {
+    color: var(--color-primary);
+    transition: var(--transition-fast);
+  }
+  
+  a:hover {
+    color: var(--color-primary-hover);
+  }
+  
+  /* Text emphasis */
+  strong, b {
+    font-weight: var(--font-weight-bold);
+  }
+  
+  em, i {
+    font-style: italic;
+  }
+  
+  /* Text alignment */
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-left {
+    text-align: left;
+  }
+  
+  .text-right {
+    text-align: right;
+  }

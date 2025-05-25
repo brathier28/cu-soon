@@ -1,0 +1,61 @@
+/* 
+ * Global Styles
+ * Base styles that apply to the entire application
+ */
+
+ body {
+    background-color: var(--color-background);
+  }
+  
+  /* App header styling */
+  .App-header {
+    background-color: var(--color-primary);
+    padding: var(--spacing-lg);
+    color: white;
+    text-align: center;
+    margin-bottom: calc(var(--spacing-xl));
+    box-shadow: var(--shadow);
+  }
+  
+  /* Main content layout */
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+  
+  /* Layout styles */
+  .p-8, .p-6 {
+    padding: var(--spacing-xl);
+    background-color: var(--color-background);
+    min-height: 100vh;
+  }
+  
+  /* Error messages */
+  .error-message {
+    color: var(--color-error);
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-small);
+  }
+  
+  /* Loading and error states */
+  .loading, .error {
+    text-align: center;
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    border-radius: var(--border-radius-lg);
+  }
+  
+  .loading {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+  
+  .error {
+    background-color: var(--color-error-light);
+    color: var(--color-error);
+  }

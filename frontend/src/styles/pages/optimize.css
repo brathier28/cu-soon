@@ -1,0 +1,62 @@
+/* 
+ * Optimize Page Styles
+ * Specific styles for the optimization page
+ */
+
+/* OptimizePage layout styles */
+.optimize-algorithm {
+  width: 100%;
+  padding: var(--spacing-lg);
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
+  margin-top: var(--spacing-xl);
+}
+
+.optimize-algorithm h2 {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-dark);
+  text-align: center;
+}
+
+/* OptimizeAlgorithm card styles */
+.optimize-algorithm .optimized-times {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Calendar and participant layout */
+.optimize-page-layout {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl);
+}
+
+.optimize-page-layout .calendar-section {
+  flex: 1;
+}
+
+.optimize-page-layout .participant-section {
+  flex: 1;
+}
+
+/* Participant list items */
+.participant-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .optimize-page-layout {
+    flex-direction: column;
+  }
+
+  .optimize-algorithm .optimized-times {
+    grid-template-columns: 1fr;
+  }
+}

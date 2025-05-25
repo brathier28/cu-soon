@@ -1,0 +1,12 @@
+node_modules/
+src/*.js
+*.js
+.DS_Store
+test-results/
+playwright-report/
+playwright/.cache/
+frontend/node_modules/.vite/deps/_metadata.json
+frontend/.env
+*.timestamp-*.mjs
+.vite/
+.env

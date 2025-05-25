@@ -1,0 +1,76 @@
+/* 
+ * CSS Reset
+ * Basic reset styles to normalize across browsers
+ */
+
+ body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* Remove default margin */
+  h1, h2, h3, h4, h5, h6,
+  p,
+  ul, ol, dl,
+  figure,
+  blockquote {
+    margin: 0;
+  }
+  
+  /* Remove list styles */
+  ul, ol {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: var(--line-height);
+  }
+  
+  /* Remove default button styles */
+  button {
+    border: none;
+    outline: none;
+    background: none;
+    font-family: inherit;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  /* Reset links */
+  a {
+    text-decoration: none;
+  }
+  
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+  
+  /* Remove all animations and transitions for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }

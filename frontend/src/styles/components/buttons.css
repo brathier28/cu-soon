@@ -1,0 +1,46 @@
+/* 
+ * Button Styles
+ * Styles for all button components
+ */
+
+ button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition-medium);
+    font-weight: var(--font-weight-medium);
+    box-shadow: var(--shadow);
+  }
+  
+  button:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  /* Button container */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-md);
+  }
+  
+  /* Button variations can be added here */
+  .button-secondary {
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+  }
+  
+  .button-secondary:hover {
+    background-color: var(--color-primary-light);
+  }

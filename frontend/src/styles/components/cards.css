@@ -1,0 +1,121 @@
+/* 
+ * Card Styles
+ * Styles for card components and variations
+ */
+
+/* Base card style */
+.card {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid var(--color-border);
+    transition: var(--transition-fast);
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  /* Time card styles - used in OptimizeAlgorithm */
+  .time-card {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: var(--transition-medium);
+    border: 1px solid var(--color-border);
+  }
+  
+  .time-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-border-medium);
+  }
+  
+  .time-card h3 {
+    color: var(--color-primary);
+    font-size: var(--font-size-medium);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .time-card p {
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-medium);
+  }
+  
+  /* Participant list items */
+  .bg-blue-100 {
+    background-color: var(--color-primary-light);
+    color: var(--color-text);
+  }
+  
+  .rounded {
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .shadow-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  .event-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 280px;
+    display: inline-flex;
+    flex-direction: column;
+    margin-right: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    vertical-align: top;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-border-medium);
+  }
+  
+  /* Container for event cards */
+  .event-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+  
+  .event-card h3 {
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .event-card .event-date {
+    font-size: var(--font-size-small);
+    color: var(--color-text-medium);
+    margin-top: var(--spacing-xs);
+    margin-bottom: var(--spacing-xxs);
+  }
+  
+  .event-card .event-location {
+    font-size: var(--font-size-small);
+    color: var(--color-text-light);
+  }
+  
+  .event-card .delete-button {
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-small);
+    color: var(--color-danger);
+    background: none;
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    transition: color 0.2s ease;
+  }
+  
+  .event-card .delete-button:hover {
+    color: var(--color-danger-dark);
+    text-decoration: underline;
+  }
