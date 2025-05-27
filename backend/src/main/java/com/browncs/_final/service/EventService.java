@@ -13,6 +13,11 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service responsible for managing event creation, retrieval, updates, deletion, and user
+ * invitation responses. Interacts with Firestore and handles participant organization and state
+ * tracking.
+ */
 @Service
 public class EventService {
 
@@ -24,6 +29,12 @@ public class EventService {
     this.emailService = emailService;
   }
 
+  /**
+   * Retrieves all events that the given email is either organizing or participating in.
+   *
+   * @param email The user email to query
+   * @return List of events associated with the email
+   */
   public List<Event> getEventsForEmail(String email)
       throws ExecutionException, InterruptedException {
     Query query =
@@ -45,6 +56,13 @@ public class EventService {
         .toList();
   }
 
+  /**
+   * Creates a new event, updates user records for organizer and participants, and sends invitation
+   * emails to participants.
+   *
+   * @param event Event object to be saved
+   * @return ID of the newly created event
+   */
   public String createEvent(Event event) throws ExecutionException, InterruptedException {
     DocumentReference eventRef = this.db.collection("events").document(); // Auto-ID
     event.setId(eventRef.getId());
@@ -84,6 +102,12 @@ public class EventService {
     return event.getId();
   }
 
+  /**
+   * Deletes the event by ID, including all associated slot subdocuments, and updates organizer and
+   * participant user references.
+   *
+   * @param eventId The ID of the event to delete
+   */
   public void deleteEventById(String eventId) throws ExecutionException, InterruptedException {
     DocumentReference eventRef = this.db.collection("events").document(eventId);
 
@@ -125,6 +149,14 @@ public class EventService {
         .get();
   }
 
+  /**
+   * Records a user's response to an event invitation. Updates confirmed/rejected status and removes
+   * users from participant lists if they reject.
+   *
+   * @param eventId The event the user is responding to
+   * @param userEmail The user's email address
+   * @param isAccept Whether the invitation is accepted (true) or rejected (false)
+   */
   public void recordInvitationResponse(String eventId, String userEmail, boolean isAccept)
       throws ExecutionException, InterruptedException {
     DocumentReference eventRef = db.collection("events").document(eventId);
@@ -190,6 +222,12 @@ public class EventService {
         .get();
   }
 
+  /**
+   * Loads a single event by ID.
+   *
+   * @param eventId ID of the event to retrieve
+   * @return Event object with ID populated
+   */
   public Event loadEventById(String eventId) throws ExecutionException, InterruptedException {
     DocumentSnapshot doc = this.db.collection("events").document(eventId).get().get();
     if (!doc.exists()) {
@@ -201,6 +239,12 @@ public class EventService {
     return event;
   }
 
+  /**
+   * Updates an existing event document by replacing it entirely with a new version.
+   *
+   * @param eventId ID of the event to update
+   * @param updatedEvent The new Event object to replace the old one
+   */
   public void updateEvent(String eventId, Event updatedEvent)
       throws ExecutionException, InterruptedException {
     DocumentReference eventRef = db.collection("events").document(eventId);

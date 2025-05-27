@@ -1,10 +1,14 @@
-// Mimics real Firestore shape
+// Mock user data that mimics real Firestore shape
 export const mockUserData = {
     email: "alice@gmail.com",
     eventsOrganized: ["eventId1", "eventId3"],
     eventsParticipating: ["eventId2", "eventId3"],
   };
   
+
+  /* 
+    This method mocks event information structure from firestore 
+   */
   export const mockEventsData: Record<string, any> = {
     eventId1: {
       id: "eventId1",

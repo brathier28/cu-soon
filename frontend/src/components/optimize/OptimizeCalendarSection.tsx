@@ -3,6 +3,13 @@ import { useEventById } from "../../hooks/useEventByID";
 import "../../styles/main.css";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 
+
+
+/**
+ * OptimizeCalendarSection fetches and renders the availability calendar
+ * for a given event. It pulls the event and associated preference data
+ * from the backend, formats it, and passes it to AvailabilityCalendar.
+ */
 const OptimizeCalendarSection: React.FC<{ eventId: string }> = ({
   eventId,
 }) => {
@@ -40,6 +47,7 @@ const OptimizeCalendarSection: React.FC<{ eventId: string }> = ({
     fetchPreferences();
   }, [eventId]);
 
+   // Handle loading and error states
   if (loading || preferencesLoading) return <div>Loading...</div>;
   if (error || !event) return <div>Error loading event.</div>;
   if (preferencesError) return <div>{preferencesError}</div>;

@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/pages/homepage.css";
 
+/**
+ * HomePage serves as the landing page for the CU Soon application.
+ * It provides basic branding and navigation options to the dashboard and about pages.
+ */
 export default function HomePage() {
   const navigate = useNavigate();
 

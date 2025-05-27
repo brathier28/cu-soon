@@ -3,12 +3,19 @@ import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/main.css";
 
+
+/**
+ * CreateEvent is the first step in the event creation flow.
+ * Users provide a title, duration, and participant emails with necessity levels.
+ * Upon validation, the form transitions to the date/time selection page.
+ */
 export default function CreateEvent() {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
 
+  // all useState information inputted by user (could be simplified using a useReducer)
+  const [title, setTitle] = useState("");
   const [durationMinutes, setDurationMinutes] = useState<number>(15);
   const [participantEmails, setParticipantEmails] = useState<string[]>([]);
   const [participantNecessity, setParticipantNecessity] = useState<Record<string, number>>({});
@@ -16,6 +23,8 @@ export default function CreateEvent() {
   const [newParticipantNecessity, setNewParticipantNecessity] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
 
+
+  // Deals with adding new participant to useState
   const handleAddParticipant = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -50,6 +59,7 @@ export default function CreateEvent() {
     setErrorMessage("");
   };
 
+  // Ensures that information inputted by user is valid
   const validateForm = () => {
     if (!title.trim()) {
       setErrorMessage("Event title is required.");
@@ -74,6 +84,7 @@ export default function CreateEvent() {
     return true;
   };
 
+  // Navigates to calendar organizer page to set ranges for event
   const handleNext = () => {
     if (!user) {
       setErrorMessage("User not signed in!");

@@ -2,11 +2,21 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import "../../styles/main.css";
 
+/**
+ * Props for the ParticipantEventCard component.
+ * - `event`: An object representing the event.
+ * - `respondToInvitation`: Callback to handle accept/reject responses to invitations.
+ */
 interface OrganizerEventCardProps {
   event: any;
   respondToInvitation: (eventId: string, resposnse: "accept" | "reject") => void;
 }
 
+/**
+ * ParticipantEventCard displays a card representing an event that a participant
+ * has been invited to. It conditionally renders actions based on whether the user
+ * has accepted or rejected the invitation, or submitted availability.
+ */
 export default function ParticipantEventCard(props: OrganizerEventCardProps) {
   const navigate = useNavigate();
   const { user } = useUser();
@@ -17,10 +27,14 @@ export default function ParticipantEventCard(props: OrganizerEventCardProps) {
   const hasAccepted = event.confirmedParticipants?.includes(email);
   const hasRejected = event.rejectedParticipants?.includes(email);
 
+  // Display loading state while user information is being fetched
   if (!user || !user.primaryEmailAddress) {
     return <p>Loading user...</p>;
   }
 
+  
+  
+  // Navigates user based on whether they have already submitted availability.
   const handleClick = () => {
     if (event?.id) {
       if (!hasSubmittedAvailability) {
@@ -31,6 +45,7 @@ export default function ParticipantEventCard(props: OrganizerEventCardProps) {
     }
   };
 
+  // Supports keyboard accessibility by allowing Enter or Space to trigger navigation.
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -38,18 +53,22 @@ export default function ParticipantEventCard(props: OrganizerEventCardProps) {
     }
   };
 
+  // Handles rejection of an event invitation and prevents event bubbling.
   const handleRejectClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     respondToInvitation(event.id, "reject");
   };
 
+  // Handles acceptance of an event invitation and prevents event bubbling.
   const handleAcceptClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     respondToInvitation(event.id, "accept");
   };
 
+  // Do not render the card if the event has no title
   if (!event?.title) return null;
 
+  // Render invitation prompt if the user has not yet responded
   if (!hasAccepted && !hasRejected) {
     return (
       <div
@@ -76,6 +95,7 @@ export default function ParticipantEventCard(props: OrganizerEventCardProps) {
     );
   }
 
+  // Render interactive card if the user has accepted the invitation
   if (hasAccepted) {
     return (
       <div
@@ -92,5 +112,6 @@ export default function ParticipantEventCard(props: OrganizerEventCardProps) {
     );
   }
 
+  // No render if the user has rejected the event
   return null;
 }

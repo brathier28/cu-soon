@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
+/**
+ * Represents an optimized time block returned from the backend.
+ * - `slotIds`: Array of time slot strings (ISO format).
+ * - `totalScore`: Numeric value representing the quality of the time block.
+ */
 interface OptimizedTime {
   slotIds: string[];
   totalScore: number;
 }
 
+// Formats a full date-time string into a human-readable format.
 const formatDateTime = (dateTimeString: string) => {
   const date = new Date(dateTimeString);
   return new Intl.DateTimeFormat("en-US", {
@@ -19,12 +26,13 @@ const formatDateTime = (dateTimeString: string) => {
   }).format(date);
 };
 
+
+
+/// Formats a start and end time into a user-friendly time range string.
 const formatTimeRange = (startStr: string, endStr: string) => {
   const startDate = new Date(startStr);
   const endDate = new Date(endStr);
-
   const sameDay = startDate.toDateString() === endDate.toDateString();
-
   const startFormatted = formatDateTime(startStr);
   const endFormatted = sameDay
     ? new Intl.DateTimeFormat("en-US", {
@@ -37,6 +45,11 @@ const formatTimeRange = (startStr: string, endStr: string) => {
   return `${startFormatted} – ${endFormatted}`;
 };
 
+/**
+ * OptimizeAlgorithm is a component that fetches and displays the top-ranked
+ * time slots based on an optimization algorithm that accounts for participant
+ * availability and priority weights.
+ */
 const OptimizeAlgorithm: React.FC<{ eventId: string }> = ({ eventId }) => {
   const [optimizedTimes, setOptimizedTimes] = useState<OptimizedTime[]>([]);
   const [loading, setLoading] = useState(false);
@@ -44,6 +57,7 @@ const OptimizeAlgorithm: React.FC<{ eventId: string }> = ({ eventId }) => {
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
+  // Calls the backend API to retrieve optimized time slots for the given event.
   const fetchOptimizedTimes = async () => {
     setLoading(true);
     setError(null);

@@ -4,6 +4,10 @@ import { useUser } from "@clerk/clerk-react";
 import { useEventById } from "../hooks/useEventByID";
 import { useParams } from "react-router-dom";
 
+/**
+ * Represents a user's selected availability time block for a specific day,
+ * with associated preference level.
+ */
 interface TimeRange {
   start: string;
   end: string;
@@ -11,6 +15,11 @@ interface TimeRange {
   day: string;
 }
 
+
+/**
+ * PostParticipantViewPage is a confirmation page shown after a participant
+ * submits their availability. It displays their selections and allows editing.
+ */
 export default function PostParticipantViewPage() {
   const { user } = useUser();
   const navigate = useNavigate();
@@ -18,6 +27,7 @@ export default function PostParticipantViewPage() {
   const { event, loading, error } = useEventById(eventId);
   const [userPreferences, setUserPreferences] = useState<TimeRange[]>([]);
 
+  // On load, extract and parse the current user's submitted preferences into TimeRange
   useEffect(() => {
     const email = user?.primaryEmailAddress?.emailAddress;
     if (event && email) {
@@ -39,6 +49,7 @@ export default function PostParticipantViewPage() {
   if (!event || error) return <p>Failed to load event.</p>;
   if (!user) return <p>You must be logged in to view this page.</p>;
 
+  // Converts a 24-hour time string (e.g. "14:00") into a user-friendly time format (e.g. "2:00 PM").
   const formatTime = (time: string) => {
     const [hour, minute] = time.split(":").map(Number);
     const date = new Date();

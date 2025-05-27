@@ -4,8 +4,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Calendar from "react-calendar";
 import "../styles/main.css";
 
+
+/**
+ * CalendarOrganizer allows an organizer to select available days and a common
+ * time range for an event. It performs validation and submits event details
+ * to the backend. Relies on state passed via route navigation.
+ */
 function CalendarOrganizer() {
-  const { user } = useUser();
+  const user = useUser();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as {
@@ -15,6 +21,7 @@ function CalendarOrganizer() {
     participantNecessity: Record<string, number>;
   };
 
+  // State to track selected dates and time ranges
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [startRange, setStartRange] = useState("09:00");
   const [endRange, setEndRange] = useState("21:00");
@@ -26,6 +33,7 @@ function CalendarOrganizer() {
     }
   }, [state, navigate]);
 
+  // handles day selection/deselection in calendar UI
   const handleDayClick = (value: Date) => {
     const alreadySelected = selectedDates.some(
       (date) => date.toDateString() === value.toDateString()
@@ -40,6 +48,7 @@ function CalendarOrganizer() {
     }
   };
 
+  // highlights selected days in calendar 
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === "month") {
       if (
@@ -53,12 +62,14 @@ function CalendarOrganizer() {
     return null;
   };
 
+  // calculates duration between two time strings (splits)
   const getRangeDurationInMinutes = (start: string, end: string): number => {
     const [startH, startM] = start.split(":").map(Number);
     const [endH, endM] = end.split(":").map(Number);
     return endH * 60 + endM - (startH * 60 + startM);
   };
 
+  // Creates event object using inputted information, handles error & sends to backend
   const handleCreateEvent = async () => {
     if (!user) {
       setErrorMessage("User not signed in!");
@@ -91,6 +102,8 @@ function CalendarOrganizer() {
       return;
     }
 
+
+     // Construct event payload to send to backend
     const eventData = {
       title: state.title,
       participantEmails: state.participantEmails,

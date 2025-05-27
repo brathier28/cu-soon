@@ -5,6 +5,14 @@ import CreateEventButton from "../components/dashboard/CreateEventButton";
 import { useNavigate } from "react-router-dom";
 import { EventData } from "../types/EventData";
 
+
+/**
+ * Dashboard displays a summary view of the user's events:
+ * - Events the user is organizing
+ * - Events the user is participating in
+ * 
+ * Users can delete events, respond to invitations, or navigate to create new events.
+ */
 export default function Dashboard() {
   const navigate = useNavigate();
   const {
@@ -16,6 +24,8 @@ export default function Dashboard() {
     error,
   } = useDashboardEvents();
 
+
+  // Deals with deleting event that user created as an organizer
   const handleDelete = (eventId: string) => {
     fetch(`http://localhost:8080/api/delete/${eventId}`, { method: "DELETE" })
       .then((res) => {
@@ -25,6 +35,7 @@ export default function Dashboard() {
       .catch(console.error);
   };
 
+  // deals with responding to events you were invited to as partiicpant
   const respondToInvitation = (eventId: string, status: "accept" | "reject") => {
     fetch(
       `http://localhost:8080/api/events/${eventId}/respond?userEmail=${encodeURIComponent(

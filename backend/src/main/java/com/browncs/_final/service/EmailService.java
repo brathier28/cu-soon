@@ -8,12 +8,23 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service responsible for sending transactional emails via SendGrid. Currently used to notify
+ * participants when they are invited to an event.
+ */
 @Service
 public class EmailService {
 
   @Value("${SENDGRID_API_KEY}")
   private String sendGridApiKey;
 
+  /**
+   * Sends an invitation email to the specified address informing them they've been added to an
+   * event.
+   *
+   * @param toEmail The recipient's email address
+   * @param eventName The name of the event to include in the invitation
+   */
   public void sendEventInvite(String toEmail, String eventName) {
     Email from = new Email("CUSoon.notifications@gmail.com");
     String subject = "You've been added to the event: " + eventName;

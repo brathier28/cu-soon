@@ -6,17 +6,29 @@ import OptimizeCalendarSection from '../components/optimize/OptimizeCalendarSect
 import OptimizeAlgorithm from '../components/optimize/OptimizeAlgorithm';
 import "../styles/main.css";
 
+
+/**
+ * Interface representing a participant’s name and whether they’ve submitted availability.
+ */
 interface Participant {
   name: string;
   hasSubmitted: boolean;
 }
 
-// Main OptimizePage Component
+/**
+ * OptimizePage is the main view for organizers to analyze and optimize availability data.
+ * 
+ * Sections:
+ * - Participant list showing submission status
+ * - Calendar view visualizing group preferences
+ * - Ranked time slots from optimization algorithm
+ */
 const OptimizePage: React.FC = () => {
   const { eventId } = useParams();
   const { event, loading, error } = useEventById(eventId);
   const [participants, setParticipants] = useState<Participant[]>([]);
 
+  // When event data is loaded, map participant emails to structured display entries.
   useEffect(() => {
     if (event) {
       const participantList = event.participantEmails.map((email: string) => ({

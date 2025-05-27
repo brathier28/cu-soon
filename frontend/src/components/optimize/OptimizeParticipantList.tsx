@@ -1,11 +1,21 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
+
+/**
+ * Represents a participant and whether they’ve submitted their availability.
+ */
 interface Participant {
   name: string;
   hasSubmitted: boolean;
 }
 
+
+/**
+ * OptimizeParticipantList displays a list of all participants for an event,
+ * indicating whether each person has submitted their availability.
+ * It also includes a navigation button to allow the current user to edit their own availability.
+ */
 const OptimizeParticipantList: React.FC<{ participants: Participant[]; eventID: string }> = ({
   participants,
   eventID,

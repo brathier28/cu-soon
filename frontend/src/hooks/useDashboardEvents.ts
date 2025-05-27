@@ -2,6 +2,15 @@ import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import { EventData } from "../types/EventData";
 
+
+/**
+ * useDashboardEvents is a custom React hook that retrieves and organizes
+ * events for the currently logged-in user, separating them into:
+ * - events the user is organizing
+ * - events the user is participating in
+ *
+ * It also exposes error state and setters for manual updates.
+ */
 export function useDashboardEvents() {
   const { user } = useUser();
   const email = user?.primaryEmailAddress?.emailAddress;
@@ -10,6 +19,10 @@ export function useDashboardEvents() {
   const [participantEvents, setParticipantEvents] = useState<EventData[]>([]);
   const [error, setError] = useState<Error | null>(null); // <- add error state
 
+  /**
+     * Fetches events associated with the current user's email from the backend.
+     * Organizes them into two groups: organized vs. participated events.
+     */
   useEffect(() => {
     async function fetchEvents() {
       if (!email) return;

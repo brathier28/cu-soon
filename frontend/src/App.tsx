@@ -10,6 +10,7 @@ import {
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+// Page components
 import Dashboard from "./pages/Dashboard";
 import ParticipantViewPage from "./pages/ParticipantViewPage";
 import PostParticipantViewPage from "./pages/PostParticipantViewPage";
@@ -31,6 +32,10 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
+/**
+ * App is the root component for the CU Soon scheduling platform.
+ * It manages authentication via Clerk and routing via React Router.
+ */
 export default function App() {
   return (
     <div className="App">
@@ -52,24 +57,15 @@ export default function App() {
               <SignOutButton />
             </div>
 
-            {/* Main App Routes */}
+            {/* Main App Routes for all pages */}
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/create-event" element={<CreateEvent />} />
-              <Route
-                path="/calendar-organizer"
-                element={<CalendarOrganizer />}
-              />
-              <Route
-                path="/event/:eventId/input-availability"
-                element={<ParticipantViewPage />}
-              />
-              <Route
-                path="/event/:eventId/home-page"
-                element={<PostParticipantViewPage />}
-              />
+              <Route path="/calendar-organizer" element={<CalendarOrganizer />}/>
+              <Route path="/event/:eventId/input-availability" element={<ParticipantViewPage />}/>
+              <Route path="/event/:eventId/home-page" element={<PostParticipantViewPage />}/>
               <Route path="/event/:eventId" element={<OptimizePage />} />
             </Routes>
           </div>

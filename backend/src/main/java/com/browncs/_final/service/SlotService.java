@@ -14,12 +14,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service responsible for managing event slot creation and participant preferences for the CU Soon
+ * scheduling platform.
+ */
 @Service
 public class SlotService {
 
   private final Firestore db = FirestoreClient.getFirestore();
   private static final Logger logger = LoggerFactory.getLogger(SlotService.class);
 
+  /**
+   * Submits user preferences for available time slots within an event. Updates or deletes
+   * participant weights on slot documents and updates the event record.
+   *
+   * @param eventId ID of the event
+   * @param request Request containing user's rankings and deleted time ranges
+   */
   public void submitPreferences(String eventId, PreferenceRequest request) {
 
     CollectionReference slots = db.collection("events").document(eventId).collection("slots");
@@ -85,6 +96,12 @@ public class SlotService {
     }
   }
 
+  /**
+   * Generates 15-minute slot documents for the specified days and time range of an event.
+   *
+   * @param eventId ID of the event
+   * @param event Event object containing time window and available days
+   */
   public void generateSlots(String eventId, Event event) {
     List<String> days = event.getAvailableDays();
     LocalTime start = LocalTime.parse(event.getStartTime()); // e.g., "09:00"
@@ -114,6 +131,14 @@ public class SlotService {
     }
   }
 
+  /**
+   * Retrieves all slot documents associated with a given event, sorted chronologically.
+   *
+   * @param eventId ID of the event
+   * @return List of Slot objects
+   * @throws ExecutionException If Firestore access fails
+   * @throws InterruptedException If Firestore access is interrupted
+   */
   public List<Slot> getPreferences(String eventId) throws ExecutionException, InterruptedException {
     CollectionReference slotCol = db.collection("events").document(eventId).collection("slots");
     List<Slot> slots =
@@ -126,7 +151,6 @@ public class SlotService {
                 })
             .sorted(Comparator.comparing(Slot::getId))
             .toList();
-
     return slots;
   }
 }

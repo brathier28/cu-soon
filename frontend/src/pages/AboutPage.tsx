@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/pages/about.css";
-import meetingImage from "../assets/meeting.jpg"; // or use /meeting.png if in public
+import meetingImage from "../assets/meeting.jpg"; 
 
+
+/**
+ * AboutPage is a static informational page describing the CU Soon platform.
+ * It highlights the core value proposition and includes a branded image with caption.
+ */
 export default function AboutPage() {
   const navigate = useNavigate();
 

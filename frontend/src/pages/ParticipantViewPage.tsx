@@ -5,12 +5,19 @@ import "../styles/main.css";
 import { useNavigate } from "react-router-dom";
 import { useEventById } from "../hooks/useEventByID";
 
+/**
+ * A single time range entry associated with a preference level.
+ */
 interface TimeRange {
   start: string;
   end: string;
   preference: number;
 }
 
+/**
+ * ParticipantViewPage allows participants to input, edit, and submit their availability
+ * for an event, including specifying preference levels for each time block.
+ */
 export default function ParticipantViewPage() {
   const { user } = useUser();
   const navigate = useNavigate();
@@ -56,19 +63,24 @@ export default function ParticipantViewPage() {
   if (!event || error) return <p>Failed to load event.</p>;
   if (!user) return <p>You must be logged in to view this page.</p>;
 
+  // Checks if user input is in designated range
   const isInRange = (start: string, end: string) =>
     event.startTime <= start && end <= event.endTime && start < end;
 
+  // Checks if user input is a multiple of 15
   const isMultipleOf15 = (time: string) => {
     const [hours, minutes] = time.split(":").map(Number);
     return minutes % 15 === 0;
   };
 
+  // Checks if there is an overlap in times selected by user
   const isOverlapping = (day: string, start: string, end: string) => {
     const existing = availability[day] || [];
     return existing.some(({ start: s, end: e }) => start < e && end > s);
   };
 
+
+  // Adds time to list 
   const handleAddTime = () => {
     if (!isInRange(startTime, endTime)) {
       setErrorMessage(
@@ -104,6 +116,7 @@ export default function ParticipantViewPage() {
     setErrorMessage("");
   };
 
+  // Deletes time from list
   const handleDeleteTime = (day: string, index: number) => {
     const range = availability[day]?.[index];
     if (range) {
@@ -122,6 +135,7 @@ export default function ParticipantViewPage() {
     });
   };
 
+  // Submits all availability time ranges (with preferences) to the backend
   const handleSubmitAvailability = async () => {
     if (!user || !user.primaryEmailAddress) {
       setErrorMessage("User not signed in!");

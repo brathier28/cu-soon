@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "../../styles/main.css";
 
+
+/**
+ * TimeSlot defines the structure for each availability entry.
+ * Each slot contains an ID, date, time, and a map of participant weights (preferences).
+ */
 interface TimeSlot {
   id: string;
   date: string;
@@ -8,6 +13,13 @@ interface TimeSlot {
   participantWeights: Record<string, number>;
 }
 
+/**
+ * Props for AvailabilityCalendar.
+ * - `startDate`, `endDate`: Date range to display
+ * - `startTime`, `endTime`: Time bounds for each day (24-hour format)
+ * - `participants`: List of participants and their response status
+ * - `preferencesData`: Submitted preferences per time slot
+ */
 interface AvailabilityCalendarProps {
   startDate: Date;
   endDate: Date;
@@ -17,6 +29,11 @@ interface AvailabilityCalendarProps {
   preferencesData: TimeSlot[];
 }
 
+/**
+ * AvailabilityCalendar displays a grid of time slots across multiple days,
+ * visualizing participant availability and preferences for scheduling.
+ * Users can click a time cell to see participant-level detail for that slot.
+ */
 export default function AvailabilityCalendar({
   startDate,
   endDate,
@@ -53,6 +70,7 @@ export default function AvailabilityCalendar({
     return slots;
   };
 
+  // Formats a date into YYYY-MM-DD for internal comparison.
   const formatDate = (date: Date) => {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
       2,
@@ -60,6 +78,7 @@ export default function AvailabilityCalendar({
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
+  // Formats time for display in 12-hour AM/PM format.
   const formatTimeDisplay = (hour: number, minute: number) => {
     const isPM = hour >= 12;
     const hour12 = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
